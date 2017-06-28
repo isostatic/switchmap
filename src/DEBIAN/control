@@ -1,0 +1,12 @@
+Package: switchmap
+Version: 14.0.__datestamp__
+Architecture: all
+Maintainer: Paul Weaver <paul.weaver.uk@gmail.com>
+Depends: libnet-snmp-perl liblog-log4perl-perl libsnmp-info-perl liblog-dispatch-perl netdiscover
+Conflicts:
+Recommends:
+Section: web
+Priority: optional
+Installed-Size: 1000
+Description: Switchport mapper
+ Packet for a switchport mapper - from https://sourceforge.net/projects/switchmap/
