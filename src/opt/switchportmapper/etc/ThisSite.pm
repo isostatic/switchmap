@@ -72,7 +72,7 @@ $SNMPv3_authPassword = "auth_password";
 # that has a connection to a subnet on your network. List routers and
 # switch/routers. Don't list switch-only devices, as they won't have
 # ARP data.
-@routers = ();
+@routers = qw//;
 
 # Here's how to fill the @routers array automatically if you happen to
 # have a directory on the local machine that contains saved copies of
@@ -84,8 +84,6 @@ $SNMPv3_authPassword = "auth_password";
 #@routers = GetFileBasenames(@rancid_router_configs);
 
 # Here's how you'd fill the @routers array if you don't have some trick to fill in the names automatically.
-push @routers, 'router1.mydomain.com';
-push @routers, 'router2.mydomain.com';
 
 # @LocalSwitches provides a static list of switches that's used when
 # you don't have HP OpenView ($GetSwitchListFromHpOpenView is set to
@@ -108,6 +106,13 @@ push @routers, 'router2.mydomain.com';
 # function described below.
 @LocalSwitches = ();
 
+@LocalSwitches = qw/---Site RTR-1 SW-1 SW-2 ---Site2 RTR-2 SW-5/;
+
+foreach (@LocalSwitches) {
+	next if (/^---/);
+	push(@routers, $_);
+}
+
 # Here's how to fill the @LocalSwitches array automatically if you
 # happen to have a directory on the local machine that contains saved
 # copies of your router configs. For example one user of SwitchMap
@@ -119,12 +124,12 @@ push @routers, 'router2.mydomain.com';
 
 # Here's an axample of how you might fill the @LocalSwitches array
 # if you can't make use of the idea explained just above.
-push @LocalSwitches, '---Building1';
-push @LocalSwitches, 'switch1-in-building1.abc.com';
-push @LocalSwitches, 'switch2-in-building1.abc.com';
-push @LocalSwitches, '---Building2';
-push @LocalSwitches, 'switch1-in-building2.abc.com';
-push @LocalSwitches, 'switch2-in-building2.abc.com';
+#push @LocalSwitches, '---Building1';
+#push @LocalSwitches, 'switch1-in-building1.abc.com';
+#push @LocalSwitches, 'switch2-in-building1.abc.com';
+#push @LocalSwitches, '---Building2';
+#push @LocalSwitches, 'switch1-in-building2.abc.com';
+#push @LocalSwitches, 'switch2-in-building2.abc.com';
 
 # @LocalSwitchTrunkPorts provides a static list of trunk ports on
 # switches.  It allows you to work around an unfortunate problem - on
@@ -152,6 +157,8 @@ push @LocalSwitches, 'switch2-in-building2.abc.com';
                'switch2'  => [ "xe-0/0/1" ],
              );
 
+%LocalSwitchTrunkPorts = ();
+
 # @LocalSwitchRelaxedTrunkPorts is the opposite of
 # @LocalSwitchTrunkPorts. It provides a way to force SwitchMap to
 # consider some ports to be "not trunk" ports, regardless of what the
@@ -161,10 +168,7 @@ push @LocalSwitches, 'switch2-in-building2.abc.com';
 # So I can track and monitor individual VM's". SwitchMap will treat
 # the ports listed in LocalSwitchRelaxedTrunkPorts as "not trunk", and
 # will show the MAC addresses associated with the ports.
-%LocalSwitchRelaxedTrunkPorts = (
-               'switch3'  => [ "ge-0/12/0", "ge-3/1/1" ],
-               'switch4'  => [ "xe-0/0/2" ],
-             );
+%LocalSwitchRelaxedTrunkPorts = ();
 
 # If you have HP OpenView and you've set $GetSwitchListFromHpOpenView
 # to 1, it may match some switches that you don't want to appear in
@@ -175,6 +179,7 @@ push @LocalSwitches, 'switch2-in-building2.abc.com';
 # switch along with all our other switches.  By putting that switch in
 # the @SkipTheseSwitches list, we can make SwitchMap skip that switch.
 @SkipTheseSwitches = ('ithaka-router');
+@SkipTheseSwitches = ();
 
 # If you use the same community string for all your routers and
 # switches, leave $CmstrFile as an empty string and set the $Community
@@ -197,7 +202,7 @@ push @LocalSwitches, 'switch2-in-building2.abc.com';
 # working community string is found, the programs use another file to
 # save the string that worked, so that on subsequent runs they can
 # avoid waiting for incorrect communities to time out.
-$CmstrFile = '';
+$CmstrFile = '/opt/switchportmapper/etc/snmps';
 
 # If you use the same SNMP community string in all your switches, set
 # $Community to that value.  If your switches have different community
@@ -209,18 +214,18 @@ $Community = 'public';
 
 # Your DNS domain.  A typical switch in our network is "abc.ucar.edu",
 # so we set this to '.ucar.edu'.
-$DnsDomain = '.your.domain';
+$DnsDomain = '.my.domain.com';
 
 # The $DestinationDirectory is the full path to the directory where
 # the output files will be written.  This should be somewhere that
 # your web server can access the files.  At my site, I set this to
 # '/usr/web/nets/internal/portlists'.
-$DestinationDirectory = '';
+$DestinationDirectory = '/opt/switchportmapper/ports';
 
 # The $DestinationDirectoryRoot is the path to the same directory as
 # DestinationDirectory, but from the perspective of the web server.
 # At my site, it's '/nets/internal/portlists'.
-$DestinationDirectoryRoot = '';
+$DestinationDirectoryRoot = '/ports';
 
 # The $StateFileDirectory is the place that the programs will write
 # and read the files that maintain state information from one run to
@@ -441,7 +446,7 @@ $ShowAncillaryPorts = 0;
 # If you set $ShowCdpNames to 1 (true), SwitchMap will put the CDP
 # name into the "What (via CDP)" column.  This can be useful, but it
 # can also make the column rather wide.
-$ShowCdpName = 0;
+$ShowCdpName = 1;
 
 # Historically, Switchmap wrote CSV files that contained only the
 # information for active, non-trunk ports.  In 2011, some users
@@ -468,7 +473,7 @@ $ArpWatchFile = 0;
 # connected a host, an IP phone, or a IP phone and host, so I'd set
 # $PortMacLimit to 2.  The default value is "high", effectively
 # turning off this feature of SwitchMap.
-$PortMacLimit = 1000;
+$PortMacLimit = 10;
 
 # The plookup (aka PetesLookup) program is a fast way to look up terms
 # that are useful to network engineers (IP addresses, MAC addresses,

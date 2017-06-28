@@ -396,7 +396,6 @@ sub OpenSnmpSession ($$$$) {
                                               -timeout    => 5,
                                               -hostname   => $DeviceName,
                                               -community  => $Community,
-                                              -maxmsgsize => 5000,
                                               -translate  => [-octetstring => 0x0]
                                              );
 

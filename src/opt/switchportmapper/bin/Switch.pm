@@ -266,7 +266,7 @@ sub PopulateSwitch ($) {
                                   Debug       => 0, # note: setting this to 1 is interesting
                                   DestHost    => $SwitchName,
                                   Community   => $this->{SnmpCommunityString},
-                                  MibDirs     => [ '/usr/local/netdisco-mibs/cisco', '/usr/local/netdisco-mibs/rfc', '/usr/local/netdisco-mibs/juniper', '/usr/local/netdisco-mibs/foundry'],
+                                  MibDirs     => [ '/usr/local/netdisco-mibs/cisco', '/usr/local/netdisco-mibs/rfc', '/usr/local/netdisco-mibs/juniper', '/usr/local/netdisco-mibs/foundry', '/usr/local/netdisco-mibs/mikrotik'],
                                   Version     => 2
                                  );
     if (!defined $session) {

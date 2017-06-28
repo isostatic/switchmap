@@ -958,10 +958,10 @@ sub PopulatePorts ($$) {
     # though they do support the STACK MIB.  So, as an experiment, just ignore the error if
     # the switch doesn't return a portIfIndex.  The rest of the code handles empty portIfIndex
     # tables, so the fix may be this simple.
-    #    if ($status != $Constants::SUCCESS) { # if we couldn't reach it or it's real slow
-    #      $logger->warn("Couldn't get the portIfIndex table from $Switch->{Name}, skipping");
-    #      return;
-    #    }
+        if ($status != $Constants::SUCCESS) { # if we couldn't reach it or it's real slow
+          $logger->warn("Couldn't get the portIfIndex table from $Switch->{Name}, skipping");
+          return;
+        }
   }
   # SwitchUtils::DbgPrintHash('portIfIndex', \%portIfIndex);
 
