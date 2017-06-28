@@ -1,0 +1,11 @@
+#!/bin/bash
+cd /opt/switchportmapper/bin
+LOG=/opt/switchportmapper/log/switchMap.log
+echo "`date` Starting - GetArp" >> $LOG
+./GetArp.pl >> $LOG 2>&1
+echo "`date` ScanSwitch.pl" >> $LOG
+./ScanSwitch.pl >> $LOG 2>&1
+echo "`date` SwitchMap.pl" >> $LOG
+./SwitchMap.pl >> $LOG 2>&1
+echo "`date` Complete" >> $LOG
+
