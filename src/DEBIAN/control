@@ -2,7 +2,7 @@ Package: switchmap
 Version: 14.0.__datestamp__
 Architecture: all
 Maintainer: Paul Weaver <paul.weaver.uk@gmail.com>
-Depends: libnet-snmp-perl liblog-log4perl-perl libsnmp-info-perl liblog-dispatch-perl netdiscover apache2
+Depends: libnet-snmp-perl, liblog-log4perl-perl, libsnmp-info-perl, liblog-dispatch-perl, netdiscover, apache2
 Conflicts:
 Recommends:
 Section: web
