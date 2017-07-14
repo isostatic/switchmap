@@ -242,7 +242,7 @@ $DestinationDirectoryRoot = '/ports';
 # '/var/local/switchmap'.  You'll have to create the directory and set
 # its ownership.  The directory must be writeable by the users that
 # run the SwitchMap program.
-$StateFileDirectory = '/var/local/switchmap';
+$StateFileDirectory = '/opt/switchportmapper/state';
 
 # Set HasConfRooms to 1 if you have a static webpage named
 # conference-rooms.html that describes your site's conference rooms.
