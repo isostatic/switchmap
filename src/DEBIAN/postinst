@@ -1,0 +1,15 @@
+#!/bin/sh
+#set -e
+if [ "$1" = "configure" ]; then
+	chown nobody:nogroup /opt/switchportmapper/log
+	chown nobody:nogroup /opt/switchportmapper/ports
+	chown nobody:nogroup /opt/switchportmapper/state
+#	chmod 755 /opt/bcn-pinger/webpage/readLog.cgi
+
+	chmod 777 /opt/switchportmapper/log
+	chmod 777 /opt/switchportmapper/ports
+	chmod 777 /opt/switchportmapper/state
+	a2enmod cgi && a2ensite switchportmapper.conf && service apache2 reload
+#	update-rc.d switchportmapper defaults
+fi
+
