@@ -4,7 +4,9 @@ if [ "$1" = "configure" ]; then
 	chown nobody:nogroup /opt/switchportmapper/log
 	chown nobody:nogroup /opt/switchportmapper/ports
 	chown nobody:nogroup /opt/switchportmapper/state
-#	chmod 755 /opt/bcn-pinger/webpage/readLog.cgi
+
+	a2ensite switchportmapper.conf
+	/etc/init.d/apache2 reload
 
 	chmod 777 /opt/switchportmapper/log
 	chmod 777 /opt/switchportmapper/ports
