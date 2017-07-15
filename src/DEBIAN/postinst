@@ -12,6 +12,7 @@ if [ "$1" = "configure" ]; then
 	chmod 777 /opt/switchportmapper/ports
 	chmod 777 /opt/switchportmapper/state
 	a2enmod cgi && a2ensite switchportmapper.conf && service apache2 reload
-#	update-rc.d switchportmapper defaults
+
+	# download-mibs, edit snmp.conf to enable them - (remove mibs :)
 fi
 
