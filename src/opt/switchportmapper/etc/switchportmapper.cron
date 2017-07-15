@@ -1,0 +1,1 @@
+*/15 * * * * nobody /opt/switchportmapper/bin/doSwitchMap 
