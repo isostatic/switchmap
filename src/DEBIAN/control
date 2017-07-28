@@ -9,4 +9,6 @@ Section: web
 Priority: optional
 Installed-Size: 1000
 Description: Switchport mapper
- Packet for a switchport mapper - from https://sourceforge.net/projects/switchmap/
+ Package for a switchport mapper - from https://sourceforge.net/projects/switchmap/
+ This allows you to scan your network and determine what devices are on each port of each switch
+ Files to edit are /opt/switchportmapper/etc/snmps and /opt/switchportmapper/etc/ThisSite.pm
