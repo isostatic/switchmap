@@ -4,7 +4,7 @@ Architecture: all
 Maintainer: Paul Weaver <paul.weaver.uk@gmail.com>
 Depends: libnet-snmp-perl, liblog-log4perl-perl, libsnmp-info-perl, liblog-dispatch-perl, netdiscover, apache2, snmp-mibs-downloader, snmp
 Conflicts:
-Recommends:
+Recommends: netdisco-mibs-installer
 Section: web
 Priority: optional
 Installed-Size: 1000
