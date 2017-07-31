@@ -25,7 +25,7 @@
 use strict;
 use File::Spec;
 use Sys::Hostname;
-use lib '/usr/web/nets/internal/portlists';
+use lib '/opt/switchportmapper/bin';
 use Constants;
 use ThisSite;
 use PetesUtils;

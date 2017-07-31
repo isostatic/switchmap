@@ -6,7 +6,7 @@
 <meta Http-Equiv="Cache-Control:" max-age="0">
 <meta Http-Equiv="Expires" Content="-100">
 <title>Switchmap Error Log</title>
-<link href="/nets/internal/portists/SwitchMap.css" rel="stylesheet">
+<link href="/ports/SwitchMap.css" rel="stylesheet">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
 <!--#include file="error-log"-->
 </pre>
 
-<a href="/nets/portlists/">Back to SwitchMap</a>
+<a href="/ports/">Back to SwitchMap</a>
 
 </body>
 </html>

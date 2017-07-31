@@ -1,5 +1,5 @@
 <?php
-$configfile='/usr/web/nets/internal/portlists/ThisSite.pm';
+$configfile='/opt/switchportmapper/bin/ThisSite.pm';
 $cols=80;
 $rows=30;
 
@@ -12,7 +12,7 @@ $rows=30;
 <meta Http-Equiv="Cache-Control:" max-age="0">
 <meta Http-Equiv="Expires" Content="-100">
 <title>Configure Switchmap</title>
-<link href="/nets/internal/SwitchMap.css" rel="stylesheet">
+<link href="/ports/SwitchMap.css" rel="stylesheet">
 </head>
 <body>
 
