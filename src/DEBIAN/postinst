@@ -11,7 +11,8 @@ if [ "$1" = "configure" ]; then
 	chmod 777 /opt/switchportmapper/log
 	chmod 777 /opt/switchportmapper/ports
 	chmod 777 /opt/switchportmapper/state
-	chmod 644 /opt/switchportmapper/bin/doSwitchMap
+	chmod 644 /opt/switchportmapper/etc/switchportmapper.cron
+	chmod 755 /opt/switchportmapper/bin/doSwitchMap
 	chown root /opt/switchportmapper/bin/doSwitchMap
 
 	a2enmod cgi; a2ensite switchportmapper.conf; service apache2 restart
