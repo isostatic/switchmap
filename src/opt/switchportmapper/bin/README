@@ -31,7 +31,7 @@ INSTALLING
 
    (as root)
    apt-get install liblog-log4perl-perl 
-   apt-get install libnet-snmp-perlb
+   apt-get install libnet-snmp-perl
    apt-get install build-essential libsnmp-perl
 
    If you have a non-Debian system, with Perl installed, try the
