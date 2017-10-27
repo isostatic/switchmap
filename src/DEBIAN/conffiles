@@ -1,4 +1,4 @@
-/opt/switchportmapper/etc/switchportmapper.cron
-/opt/switchportmapper/etc/ThisSite.pm
 /opt/switchportmapper/etc/snmps
+/opt/switchportmapper/etc/switchportmapper.cron
 /opt/switchportmapper/etc/switchportmapper-apache.conf
+/opt/switchportmapper/etc/ThisSite.pm
