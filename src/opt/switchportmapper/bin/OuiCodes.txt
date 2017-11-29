@@ -1887,7 +1887,7 @@
 00075e Ametek Power Instruments
 00075f VCS Video Communication
 000760 TOMIS Information &amp; Telecom
-000761 29530
+000761 Logitech SA / 29530
 000762 Group Sense
 000763 Sunniwell Cyber Tech.
 000764 YoungWoo Telecom
@@ -9634,7 +9634,7 @@
 0025c0 ZillionTV
 0025c1 Nawoo Korea
 0025c2 RingBell
-0025c3 21168
+0025c3 Nortel / 21168
 0025c4 Ruckus Wireless
 0025c5 Star Link Communication
 0025c6 kasercorp
