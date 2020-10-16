@@ -887,6 +887,9 @@ sub GetPortConnectedToCells ($$$$$) {
         my @items = split ' ', $Port->{VlansOnTrunk};
         my $nbrVlans = @items;
         my $limit = 10;
+        if (defined($ThisSite::TrunkVLANLimit)) { 
+            $limit = $ThisSite::TrunkVLANLimit; 
+        }
         if ($nbrVlans <= $limit) {
           $trunkString .= " for VLANs $Port->{VlansOnTrunk}";
         } else {

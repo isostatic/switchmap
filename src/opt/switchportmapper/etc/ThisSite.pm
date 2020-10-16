@@ -486,6 +486,9 @@ $GeneratePLookupFiles = 0;
 # that gives a name for each field.
 $WriteHeaderInCsvFiles = 1;
 
+# When showing vlans on a trunk, this is the maximum number to list
+$TrunkVLANLimit = 20;
+
 # Uncomment and modify this function if you need the GetFileBasenames
 # function, referred to above.
 # sub GetFileBasenames{
