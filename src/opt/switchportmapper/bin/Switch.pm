@@ -194,7 +194,8 @@ sub PopulateSwitch ($) {
   $this->{SnmpSysContact}  = $result->{"$sysContactOid"};
   $this->{SnmpSysName}     = $result->{"$sysNameOid"};
   $this->{SnmpSysLocation} = $result->{"$sysLocationOid"};
-  if ($result->{$engineUptimeOid}) {
+  $this->{SnmpSysUptime} = $result->{"$sysUptimeOid"};
+  if ($result->{$engineUptimeOid} =~ /^\d+$/) {
     $this->{SnmpSysUptime}   = Time::Seconds->new($result->{$engineUptimeOid})->pretty;
   }
 
