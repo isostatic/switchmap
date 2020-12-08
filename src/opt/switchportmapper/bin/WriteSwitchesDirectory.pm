@@ -215,6 +215,21 @@ SECTIONHEADER
 }
 
 
+sub WriteSwitchSummaryData ($$) {
+  my ($section, $Switch) = @_;
+  my $toRet;
+  my $name = $Switch->{FullName};
+  my $loc = $Switch->{SnmpSysLocation};
+  my $ipad = $Switch->{IPaddr};
+  my $model = $Switch->{ChassisModel};
+  my $desc = $Switch->{SnmpSysDescr};
+  my $uptime = $Switch->{SnmpSysUptime};
+  $desc =~ s/\r\n/<br>/g;
+  $desc =~ s/\n/<br>/g;
+
+  $toRet .= "<tr><td>$section</td><td><a href=\"$name.html\">$name</a></td><td>$loc</td><td>$ipad</td><td>$model</td><td>$desc</td><td>$uptime</td></tr>\n";
+  return $toRet;
+}
 sub WriteSwitchHtmlData ($$$) {
   my $Switch         = shift;
   my $MacIpAddrRef   = shift;
@@ -369,6 +384,19 @@ sub WriteSwitchesIndexFile ($) {
   }
 
   print PORTSBYSWITCHFILE "</table>\n";
+  print PORTSBYSWITCHFILE "<hr>\n";
+  print PORTSBYSWITCHFILE "Switch information\n";
+  print PORTSBYSWITCHFILE "<table id='switchinfo'><thead><tr><th>Section</th><th>Name</th><th>Location</th><th>IP Address</th><th>Model</th><th>Description</th><th>Uptime</th></tr></thead><tbody>\n";
+  my $section = "";
+  foreach my $Switch (@{$SwitchesRef}) {
+    if ($Switch->{FullName} =~ /---(.*)/) {
+      $section = $1;
+      $section =~ s/_/ /g;
+    } else {
+      print PORTSBYSWITCHFILE WriteSwitchSummaryData($section, $Switch);
+    }
+  }
+  print PORTSBYSWITCHFILE "</tbody></table>";
   print PORTSBYSWITCHFILE SwitchUtils::HtmlTrailer;
   close PORTSBYSWITCHFILE;
   SwitchUtils::AllowAllToReadFile $IndexFileName;
@@ -394,6 +422,7 @@ sub WriteSwitchesFiles ($) {
 
   my $MacIpAddrRef = MacIpTables::getMacIpAddr();
   my $MacHostNameRef = MacIpTables::getMacHostName();
+
   foreach my $Switch (@$SwitchesRef) {
     my $SwitchName = GetName $Switch;
     next if $SwitchName =~ /^---(.+)/;   # if it's a group name, not a switch

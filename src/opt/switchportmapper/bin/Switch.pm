@@ -3,13 +3,14 @@ package Switch;
 use strict;
 use SNMP::Info 3.30;
 use Log::Log4perl qw(get_logger);
-#use Data::Dumper;
 use GetChassisModel;
 use PopulateEtherChannels;
 use ModuleList;
 use PopulatePorts;
 use Socket;  # for inet_ntoa
 
+# to convert seconds to days, hours, minutes, seconds
+use Time::Seconds;
 
 sub new {
   my $type = shift;
@@ -175,11 +176,13 @@ sub PopulateSwitch ($) {
 
   my $sysDescrOid    = '1.3.6.1.2.1.1.1.0';
   my $sysUptimeOid   = '1.3.6.1.2.1.1.3.0';
+  my $engineUptimeOid   = '1.3.6.1.6.3.10.2.1.3.0';
   my $sysContactOid  = '1.3.6.1.2.1.1.4.0';
   my $sysNameOid     = '1.3.6.1.2.1.1.5.0';
   my $sysLocationOid = '1.3.6.1.2.1.1.6.0';
   my $result = $Session->get_request(-varbindlist => [$sysDescrOid,
                                                       $sysUptimeOid,
+                                                      $engineUptimeOid,
                                                       $sysContactOid,
                                                       $sysNameOid,
                                                       $sysLocationOid]);
@@ -187,11 +190,13 @@ sub PopulateSwitch ($) {
     $logger->warn("$SwitchName: Couldn't get the sysDescr, sysUptimeOid, sysContact, sysName and sysLocation");
     return $Constants::FAILURE;
   }
-  $this->{SnmpSysDescr}    = $result->{$sysDescrOid};
-  $this->{SnmpSysContact}  = $result->{$sysContactOid};
-  $this->{SnmpSysName}     = $result->{$sysNameOid};
-  $this->{SnmpSysLocation} = $result->{$sysLocationOid};
-  $this->{SnmpSysUptime}   = $result->{$sysUptimeOid};
+  $this->{SnmpSysDescr}    = $result->{"$sysDescrOid"};
+  $this->{SnmpSysContact}  = $result->{"$sysContactOid"};
+  $this->{SnmpSysName}     = $result->{"$sysNameOid"};
+  $this->{SnmpSysLocation} = $result->{"$sysLocationOid"};
+  if ($result->{$engineUptimeOid}) {
+    $this->{SnmpSysUptime}   = Time::Seconds->new($result->{$engineUptimeOid})->pretty;
+  }
 
   $logger->debug('sysDescr = "'    . $this->{SnmpSysDescr}    . '"');
   $logger->debug('sysContact = "'  . $this->{SnmpSysContact}  . '"');
