@@ -180,11 +180,13 @@ sub PopulateSwitch ($) {
   my $sysContactOid  = '1.3.6.1.2.1.1.4.0';
   my $sysNameOid     = '1.3.6.1.2.1.1.5.0';
   my $sysLocationOid = '1.3.6.1.2.1.1.6.0';
+  my $sysExtDesc     = '1.0.8802.1.1.2.1.3.4.0';
   my $result = $Session->get_request(-varbindlist => [$sysDescrOid,
                                                       $sysUptimeOid,
                                                       $engineUptimeOid,
                                                       $sysContactOid,
                                                       $sysNameOid,
+                                                      $sysExtDesc,
                                                       $sysLocationOid]);
   if (!defined($result)) {
     $logger->warn("$SwitchName: Couldn't get the sysDescr, sysUptimeOid, sysContact, sysName and sysLocation");
@@ -197,6 +199,10 @@ sub PopulateSwitch ($) {
   $this->{SnmpSysUptime} = $result->{"$sysUptimeOid"};
   if ($result->{$engineUptimeOid} =~ /^\d+$/) {
     $this->{SnmpSysUptime}   = Time::Seconds->new($result->{$engineUptimeOid})->pretty;
+  }
+  if ($this->{SnmpSysDescr} =~ /RouterOS/) {
+    # Mikrotik Router OS, append extended description
+    $this->{SnmpSysDescr} .= "\n". $result->{"$sysExtDesc"};
   }
 
   $logger->debug('sysDescr = "'    . $this->{SnmpSysDescr}    . '"');

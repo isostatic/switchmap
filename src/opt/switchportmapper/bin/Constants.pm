@@ -320,6 +320,12 @@ $SecondsPerMonth = 30 * $SecondsPerDay;  # number of seconds in a 30-day month
              'sysObjectID'  => '1.3.6.1.2.1.1.2.0',
 
              #
+             # The SNMP oid of the sysDescr is .1.3.6.1.2.1.1.1.0
+             #   1.3.6.1.2.1 = iso.org.dod.internet.mgmt.mib-2
+             #
+             'sysDescr'  => '.1.3.6.1.2.1.1.1.0',
+
+             #
              #   1.3.6.1.4.1.9  = iso.org.dod.internet.private.enterprises.cisco
              #   5.1.9.3.1.3    = wkgrpProducts.stack.vlanGrp.vlanPortTable.vlanPortEntry.vlanPortVlan
              'vlanPortVlan'           => '1.3.6.1.4.1.9.5.1.9.3.1.3',

@@ -30,6 +30,24 @@ sub GetChassisModelFromCiscoStackMib($$$) {
   $logger->debug("returning");
 }
 
+sub GetChassisModelFromMikrotikMib($$) {
+  my $Session         = shift;
+  my $chassisModelRef = shift;
+  my $logger = get_logger('log4');
+  $logger->debug("called");
+
+  my $cName = '';
+  my $status = SwitchUtils::GetOneOidValue($Session,
+                                           'sysDescr',
+                                           \$cName);
+  if ($status == $Constants::SUCCESS) {
+    $cName =~ s/RouterOS //;
+    $$chassisModelRef = 'Mikrotik ' . $cName;
+  }
+
+  $logger->debug("returning");
+}
+
 
 sub GetChassisModelFromEntityMib($$$) {
   my $Session         = shift;
@@ -72,6 +90,8 @@ sub GetChassisModelFromEntityMib($$$) {
           $vendor = 'Cisco';
         } elsif ($sysObjectId =~ /^1\.3\.6\.1\.4\.1\.1991\./) {
           $vendor = 'Brocade';
+        } elsif ($sysObjectId =~ /^1\.3\.6\.1\.4\.1\.14988\./) {
+          $vendor = 'Mikrotik';
         }
         $$chassisModelRef = $vendor . ' ' . $physicalModelName;
         $logger->debug("got entPhysicalModelNames, setting chassisModelRef to $$chassisModelRef");
@@ -178,6 +198,9 @@ sub GetChassisModel ($$) {
     # doesn't support the Cisco Stack MIB, and try the Entity MIB.
     $logger->info("couldn't get it from the Cisco Stack MIB, trying the Entity MIB...");
     GetChassisModelFromEntityMib($Session, $Switch->{SnmpSysObjectId}, \$chassisModel);
+  }
+  if ($chassisModel =~ /^Mikrotik/) {
+    GetChassisModelFromMikrotikMib($Session, \$chassisModel);
   }
   if ($chassisModel eq 'unknown') {
     # It doesn't support either the Cisco Stack MIB or the Entity MIB.
