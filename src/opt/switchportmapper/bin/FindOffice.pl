@@ -23,6 +23,7 @@
 #
 
 use strict;
+use CGI qw/param/;
 use File::Spec;
 use Sys::Hostname;
 use lib '/opt/switchportmapper/bin';
@@ -419,6 +420,26 @@ sub GetMatches {
         foreach my $CsvRow (ConvertHtmlRowsToCsvRows(\@HtmlRows)) {
           push @matches, "$SwitchName,$CsvRow\n";
         }
+      } elsif ($OutputFormat eq 'json') {
+        foreach my $CsvRow (ConvertHtmlRowsToCsvRows(\@HtmlRows)) {
+          my $hash = {};
+          $hash->{switch} = $SwitchName;
+          my ($port, $vlan, $state, $inactive, $speed, $duplex, $label, $cdp, $lldp, $mac, $nic, $ip, $dns) = split(/,/, $CsvRow);
+          $hash->{port} = $port;
+          $hash->{vlan} = $vlan;
+          $hash->{state} = $state;
+          $hash->{inactive} = $inactive;
+          $hash->{speed} = $speed;
+          $hash->{duplex} = $duplex;
+          $hash->{label} = $label;
+          $hash->{cdp} = $cdp;
+          $hash->{lldp} = $lldp;
+          $hash->{mac} = $mac;
+          $hash->{nic} = $nic;
+          $hash->{ip} = $ip;
+          $hash->{dns} = $dns;
+          push @matches, $hash;
+        }
       } else {
         my $SwitchNameLink = $SwitchName;
         if ($ThisSite::DestinationDirectoryRoot ne '') {
@@ -453,7 +474,7 @@ sub SearchResults {
   my $OutputFormat = shift;
   my @Results;
 
-  my@Matches = GetMatches($SearchString, $OutputFormat);
+  my @Matches = GetMatches($SearchString, $OutputFormat);
   return ($#Matches == -1) ? ("<p>No matches found.</p>\n") : @Matches;
 }
 
@@ -477,19 +498,32 @@ foreach my $arg (@args) {
     $OutputFormat = $1;
   }
 }
+
+# Allow traditional url parameters too
+if (param("fmt")) { $OutputFormat = param("fmt"); }
+if (param("strng")) { $SearchString = param("strng"); }
+
 if ($SearchString eq '') {
   DieNow "The FindOffice.pl script running on $ThisMachineName couldn't find \"strng=\" in " .
     "the environment variable QUERY_STRING";
 }
-if (($OutputFormat ne 'html') and ($OutputFormat ne 'csv')) {
+if (($OutputFormat ne 'html') and ($OutputFormat ne 'csv') and ($OutputFormat ne 'json')) {
   DieNow "The FindOffice.pl script running on $ThisMachineName found \"fmt=xxx\" in the " .
     "environment variable QUERY_STRING, but xxx wasn't \"html\" or \"csv\"";
 }
 
 if ($OutputFormat eq 'csv') {
   print
-    "Content-type: text/plain\n",
+    "Content-type: text/plain\n\n",
     SearchResults($SearchString, $OutputFormat);
+} elsif ($OutputFormat eq 'json') {
+  print "Content-type: application/json\n\n";
+  my @r = SearchResults($SearchString, $OutputFormat);
+  if (@r[0] =~ /<p>No matches found.<.p>/) {
+    print "{}"
+  } else {
+    use JSON; print JSON->new->utf8->encode(\@r);
+  }
 } elsif ($OutputFormat eq 'html') {
   my $title = 'Search Results';
   my $CssFilePath = $ThisSite::DestinationDirectoryRoot .'/SwitchMap.css';
