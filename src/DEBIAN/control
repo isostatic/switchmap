@@ -3,7 +3,6 @@ Version: 14.0.__datestamp__
 Architecture: all
 Maintainer: Paul Weaver <paul.weaver.uk@gmail.com>
 Depends: libnet-snmp-perl, liblog-log4perl-perl, libsnmp-info-perl, liblog-dispatch-perl, netdiscover, apache2, snmp-mibs-downloader, snmp, libjson-perl
-Conflicts:
 Recommends: netdisco-mibs-installer
 Section: web
 Priority: optional
