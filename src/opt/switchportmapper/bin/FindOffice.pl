@@ -509,7 +509,7 @@ if ($SearchString eq '') {
 }
 if (($OutputFormat ne 'html') and ($OutputFormat ne 'csv') and ($OutputFormat ne 'json')) {
   DieNow "The FindOffice.pl script running on $ThisMachineName found \"fmt=xxx\" in the " .
-    "environment variable QUERY_STRING, but xxx wasn't \"html\" or \"csv\"";
+    "environment variable QUERY_STRING, but xxx wasn't \"html\" or \"csv\" or \"json\"";
 }
 
 if ($OutputFormat eq 'csv') {
