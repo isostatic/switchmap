@@ -844,14 +844,19 @@ sub GetEtherChannelCells ($) {
 
   my $EtherChannel = $Port->{EtherChannel}; # get the EtherChannel object
   my $EcPortList = '';
+  my $EcNum = 0;
   foreach my $ChildPort (@{$EtherChannel->{ChildPorts}}) {
     $logger->debug("looking at maybe adding $ChildPort->{Name} to EcPortList");
     next if $ChildPort->{Name} eq $Port->{Name}; # don't want this port in the etherchannel port list
     $logger->debug("adding $ChildPort->{Name} to EcPortList");
     $EcPortList .= ' ' . $ChildPort->{Name};
+    $EcNum++;
   }
   my $ColSpan = ($Port->{CdpCachePlatform} ne '') ? 4 : 5;
   $logger->debug("returning");
+  if ($EcNum > 4) {
+    $EcPortList = "<span title='$EcPortList'>$EcNum ports</span>";
+  }
   return <<EXTRAROW;
 <tr>
 <td colspan="$ColSpan" class="cellEtherChannel"><em>etherchanneled with $EcPortList</em></td>
