@@ -372,6 +372,9 @@ sub GetModuleDataFromEntityMib($$) {
     if ($Class == $Constants::MODULE) {
       my $Parent = $entPhysicalContainedIn{$entRowNbr};
       #      $logger->debug("Parent  == \"$Parent\"");
+      if (!defined($entPhysicalName{$Parent})) {
+        next;
+      }
       if (($entPhysicalName{$Parent} =~ /^Physical Slot (\d+)$/) or
           ($entPhysicalName{$Parent} =~ /^Slot (\d+)$/)) {
         $NumberModules++;
