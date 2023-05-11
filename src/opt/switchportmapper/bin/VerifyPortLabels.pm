@@ -331,7 +331,7 @@ sub ScanPort($$$) {
           ($PortName ne 'Vo0'    ) && # virtual
           ($PortName ne 'sl0'    ) && # serial console
           ($PortName ne 'CPP'    ) && # Control Plane Policing?
-          ($PortName ne 'SPAN RP') && # Switched Port Analyzer (SPAN) route processer?
+          ($PortName ne 'SPAN RP') && # Switched Port Analyzer (SPAN) route processor?
           ($PortName ne 'SPAN SP')) { # Switched Port Analyzer (SPAN) switch processor?
         push @BlankLabels, HtmlLine( $SwitchName, $PortName, $Port->{Label} );
       }

@@ -207,7 +207,7 @@ sub GetModuleDataFromStackMib ($$) {
   # characters in the remaining 2 entries.  So the following code
   # checks the returned tables for unprintable characters.  If they
   # are present, we assume all the module data is crap, and return 0
-  # to indicate that the switch raelly doesn't have modules.
+  # to indicate that the switch really doesn't have modules.
   my $ModuleTypesAreBogus = $Constants::FALSE;
   foreach my $ModNum (sort keys %{$this->{SerialNumberString}}) {
     if (${$this->{SerialNumberString}}{$ModNum} =~ s/[\x80-\xFF]//) {    # if it contains unprintable characters

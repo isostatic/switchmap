@@ -122,7 +122,7 @@ Added GetVlansOnPorts.pm and some other code to show VLANs that are
 Increased the buffer size on SNMP calls by adding
   "-maxmsgsize => 5000" to calls to Net::SNMP->session.  Thanks
   to spegghy69.
-In SwitchUtils::GetWhatViaCdp, add 2 lines to delete imbedded
+In SwitchUtils::GetWhatViaCdp, add 2 lines to delete embedded
   newlines and carriage returns from the strings learned via CDP.
   Thanks to PCL.
 Modified PopulatePorts.pm and a few others to handle switches that
