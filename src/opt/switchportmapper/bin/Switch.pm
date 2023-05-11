@@ -278,7 +278,7 @@ sub PopulateSwitch ($) {
                                   Debug       => 0, # note: setting this to 1 is interesting
                                   DestHost    => $SwitchName,
                                   Community   => $this->{SnmpCommunityString},
-                                  MibDirs     => [ '/opt/switchportmapper/mibs/cisco', '/opt/switchportmapper/mibs/rfc', '/opt/switchportmapper/mibs/juniper', '/opt/switchportmapper/mibs/foundry', '/opt/switchportmapper/mibs/mikrotik', '/opt/switchportmapper/mibs/hp', '/opt/switchportmapper/mibs/h3c'],
+                                  MibDirs     => [ '/opt/switchportmapper/mibs/arista', '/opt/switchportmapper/mibs/cisco', '/opt/switchportmapper/mibs/rfc', '/opt/switchportmapper/mibs/juniper', '/opt/switchportmapper/mibs/foundry', '/opt/switchportmapper/mibs/mikrotik', '/opt/switchportmapper/mibs/hp', '/opt/switchportmapper/mibs/h3c'],
                                   Version     => 2
                                  );
     if (!defined $session) {

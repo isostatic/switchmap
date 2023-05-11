@@ -166,6 +166,7 @@ sub readMacListFile () {
     my $oldmac = $1;
     my $oldip = $2;
     my $oldtime = $3;
+    next if (!defined($oldmac));
     if ($oldtime > $OneMonthAgo) { # if the MAC is younger than a month old
       $OldMAC{$oldip} = $oldmac;
       $ipmac = "$oldip.$oldmac";
