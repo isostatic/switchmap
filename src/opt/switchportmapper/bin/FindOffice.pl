@@ -291,7 +291,7 @@ sub GetHtmlRows {
 # format.
 #
 # The Cisco IOS format is fairly static: three 4-character strings
-# with two dots beteen them. The following code handles that simple
+# with two dots between them. The following code handles that simple
 # case first. It then checks for the other formats, which are
 # delimited by colons or dashes. Regardless of the delimiter, the code
 # checks each octet to see if a leading zero needs to be added.
@@ -299,17 +299,17 @@ sub GetHtmlRows {
 sub CanonicalizeMac {
   my $string = shift;
   if ($string =~ /^[0-9a-zA-Z]{4}\.[0-9a-zA-Z]{4}\.[0-9a-zA-Z]{4}$/) { # Cisco IOS format?
-    $string =~ s/\.//g ;            # just remeve the dots
+    $string =~ s/\.//g ;            # just remove the dots
   } else {
-    my $delimeter = '';
+    my $delimiter = '';
     if ($string      =~ /^[0-9a-zA-Z]{1,2}:[0-9a-zA-Z]{1,2}:[0-9a-zA-Z]{1,2}:[0-9a-zA-Z]{1,2}:[0-9a-zA-Z]{1,2}:[0-9a-zA-Z]{1,2}$/) {
-      $delimeter = ':';
+      $delimiter = ':';
     } elsif ($string =~ /^[0-9a-zA-Z]{1,2}-[0-9a-zA-Z]{1,2}-[0-9a-zA-Z]{1,2}-[0-9a-zA-Z]{1,2}-[0-9a-zA-Z]{1,2}-[0-9a-zA-Z]{1,2}$/) {
-      $delimeter = '-';
+      $delimiter = '-';
     }
-    if ($delimeter ne '') {
+    if ($delimiter ne '') {
       my @newOctets;
-      foreach my $octet (split $delimeter, $string) {
+      foreach my $octet (split $delimiter, $string) {
         if ((length $octet) == 1) { # no leading 0?
           $octet = '0' . $octet;    # add it
         }
@@ -339,7 +339,7 @@ sub GetFileNames {
 
 #
 # Given a row of an html table and a searchstring, put "span" tags
-# around the ocurrences of searchstring in the row.  For example, given
+# around the occurrences of searchstring in the row.  For example, given
 #
 # <td class="cellActive">this is some text</td>
 #

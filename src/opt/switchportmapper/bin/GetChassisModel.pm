@@ -70,7 +70,7 @@ sub GetChassisModelFromEntityMib($$$) {
         $chassisIndex = $indx;
       }
     }
-    if ($chassisIndex != -1) {  # if we found a chassis entitiy
+    if ($chassisIndex != -1) {  # if we found a chassis entity
       $logger->debug("the index of the chassis item in entPhysicalClasses is \"$chassisIndex\"");
       $logger->debug("getting the entPhysicalModelName table...");
       my %entPhysicalModelNames;
