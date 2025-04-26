@@ -50,7 +50,7 @@ sub dieWithUsageMessage () {
   my $MyName = PetesUtils::ThisScriptName();
   die <<WARNING;
 
- Usage: GetArp.pl [-d n] [-i n] [-w n] [-f] [-v]
+ Usage: GetArp.pl [-d n] [-i n] [-w n] [-f] [-v] [-h]
 
   This program gets ARP caches from routers and stores the data in
   a file named $Constants::MacListFile.  Later, the
@@ -91,6 +91,8 @@ sub dieWithUsageMessage () {
 
      -v          Display the version and exit.
 
+     -h          Display this help and exit.
+
 WARNING
 }
 
@@ -126,6 +128,9 @@ sub parseCommandLineAndInitializeLogging () {
   if (exists $options{'v'}) {
     my $version = version();
     die "GetArp version $version\n";
+  }
+  if (exists $options{'h'}) {
+    dieWithUsageMessage;
   }
   my $LogToFile = 0;
   if (exists $options{'f'}) {
