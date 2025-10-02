@@ -1,7 +1,12 @@
 #!/bin/bash
+if [[ "x$USER" != "xnobody" ]]
+then
+echo "Run this as user 'nobody' - sudo -u nobody $0"
+exit
+fi
 cd /opt/switchportmapper/bin
 LOG=/opt/switchportmapper/log/switchMap.log
-echo "`date` Starting - GetArp" >> $LOG
+echo "`date` Starting - GetArp" > $LOG
 ./GetArp.pl >> $LOG 2>&1
 echo "`date` ScanSwitch.pl" >> $LOG
 ./ScanSwitch.pl >> $LOG 2>&1
