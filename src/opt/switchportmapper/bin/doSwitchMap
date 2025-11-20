@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "x$USER" != "xnobody" ]]
+if [[ `id|grep nobody|wc -l ` == 0 ]]
 then
 echo "Run this as user 'nobody' - sudo -u nobody $0"
 exit
