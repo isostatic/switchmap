@@ -433,7 +433,15 @@ sub WriteSwitchesFiles ($) {
       exit;
     };
 
-    my $TitleLine = "$SwitchName ports list";
+    my $TitleLine = "";
+    if ($ThisSite::UseSysNames) {
+      my $SName = $Switch->GetSysName();
+      $TitleLine = "$SName ($SwitchName)";
+    } else {
+      $TitleLine = $SwitchName;
+    }
+
+    $TitleLine .= " ports list";
     print HTMLFILE SwitchUtils::HtmlHeader($TitleLine);
     print HTMLFILE HeaderBlurb();
     WriteSwitchHtmlData($Switch, $MacIpAddrRef, $MacHostNameRef);
