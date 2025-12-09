@@ -33,7 +33,7 @@
 # Identifiers (the codes used in the first three bytes of MAC
 # addresses).  These codes are officially assigned by the IEEE.  The
 # IEEE provides a list of OUI information in a file named oui.txt,
-# available from http://standards.ieee.org/develop/regauth/oui/oui.txt
+# available from https://standards-oui.ieee.org/oui/oui.txt
 # The IEEE's oui.txt file is incomplete, since the IEEE doesn't list
 # OUIs of organizations that have asked the IEEE to not publically
 # list their OUIs.  The OuiCodes.txt file contains all the OUIs listed
