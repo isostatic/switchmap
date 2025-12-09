@@ -67,7 +67,7 @@ sub dieWithUsageMessage () {
   my $MyName = PetesUtils::ThisScriptName();
   die <<WARNING;
 
- Usage: scanswitch.pl [-d n] [-i n] [-w n] [-f] [-v] [switchname]
+ Usage: scanswitch.pl [-d n] [-i n] [-w n] [-f] [-v] [-h] [switchname]
 
  This program updates .idlesince files, which are used by
  the SwitchMap.pl program.
@@ -105,6 +105,8 @@ sub dieWithUsageMessage () {
      -f          Write messages to a file named $MyName.log
 
      -v          Display the version and exit.
+
+     -h          Display this help and exit.
 
      switchname  The name of a switch.  The name must be
                  composed of only lowercase letters,
@@ -151,6 +153,9 @@ sub ParseCommandLineAndInitializeLogging ($) {
   if (exists $options{'v'}) {
     my $version = version();
     die "ScanSwitch version $version\n";
+  }
+  if (exists $options{'h'}) {
+    dieWithUsageMessage();
   }
   my $LogToFile = 0;
   if (exists $options{'f'}) {

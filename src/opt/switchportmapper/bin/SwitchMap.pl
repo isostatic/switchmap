@@ -258,7 +258,7 @@ sub dieWithUsageMessage () {
   my $MyName = PetesUtils::ThisScriptName();
   die <<USAGE;
 
- Usage: SwitchMap.pl [-c] [-d n] [-i n] [-w n] [-f] [-v] [switchname]
+ Usage: SwitchMap.pl [-c] [-d n] [-i n] [-w n] [-f] [-v] [-h] [switchname]
 
  This program creates HTML files and CSV files representing
  one or more Cisco Ethernet switches.  For each switch,
@@ -293,6 +293,8 @@ sub dieWithUsageMessage () {
      -f          Write messages to a file named $MyName.log
 
      -v          Display the version and exit.
+
+     -h          Display this help and exit.
 
      switchname  The name of a switch.  The name must be composed
                  of only lowercase letters, digits, dashes and
@@ -340,6 +342,9 @@ sub ParseCommandLineAndInitializeLogging ($$) {
   if (exists $options{'v'}) {
     my $version = version();
     die "SwitchMap version $version\n";
+  }
+  if (exists $options{'h'}) {
+    dieWithUsageMessage;
   }
   my $LogToFile = 0;
   if (exists $options{'f'}) {
